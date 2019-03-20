@@ -1,0 +1,97 @@
+<?php
+/**
+ * @var \ProKarma\MyProducts\Block\Customer\MyProducts $block
+ */
+
+$myOrderedProducts = $block->getMyOrderedProducts();
+?>
+
+<?php if (is_array($myOrderedProducts) && count($myOrderedProducts) > 0): ?>
+<div class="sort-by-options"><label class="label" for="product-option"><span><?= /* @escapeNotVerified */
+            __('Sort By') ?></span></label><?= /* @escapeNotVerified */ __($block->getCustomSortByOptions()) ?></div>
+    <div class="products wrapper grid products-grid">
+        <ol class="products list items product-items my-product">
+            <?php foreach ($myOrderedProducts as $myProduct): ?>
+                <li class="item product product-item">
+                    <div class="product-item-info">
+                        <div class="product_image">
+                            <a href="#" class="product photo product-item-photo" tabindex="-1">
+                            <span class="product-image-container" style="width:240px;">
+                                <span class="product-image-wrapper" style="padding-bottom: 125%;">
+                                    <img class="product-image-photo" src="<?= $myProduct['image']; ?>" max-width="240"
+                                         max-height="300" alt="<?= /* @escapeNotVerified */
+                                    __($myProduct['name']); ?>"></span>
+                            </span>
+                            </a>
+                        </div>
+                        <div class="product details product-item-details">
+                            <h2 class="product name product-item-name">
+                                <a class="product-item-link" href="#">
+                                    <?= /* @escapeNotVerified */
+                                    __($myProduct['name']); ?>
+                                </a>
+                            </h2>
+                            <?php if (!empty($myProduct['custom_options'])): ?>
+                                <dl class="item-options">
+                                    <?= /* @escapeNotVerified */
+                                    __($myProduct['custom_options']); ?>
+                                </dl>
+                            <?php endif; ?>
+                            <div class="price-box price-final_price" data-role="priceBox"
+                                 data-product-id="<?= $myProduct['item_id'] ?>"
+                                 data-price-box="product-id-<?= $myProduct['item_id'] ?>">
+                            <span class="price-container price-final_price">
+                                        <span class="price-label">Item Price: </span>
+                                        <span class="price"><?= $block->getFormattedPrice($myProduct['price'], true, true); ?></span>
+                                    </span>
+                            </div>
+                            <?php ?>
+                            <div class="product-item-inner hoverShow">
+                                <div class="product-item-inner-hide"></div>
+                                <div class="product actions product-item-actions  center">
+                                    <div class="actions-primary">
+                                        <div class="center">
+                                            <form data-role="tocart-form"
+                                                  action="<?= $block->getAddToCartOrderedItemActionUrl(); ?>"
+                                                  method="post" id="reorder-item-form-<?= $myProduct['item_id']; ?>">
+                                                <input type="hidden" name="order_items[]"
+                                                       id="reorder-item-<?= $myProduct['item_id']; ?>"
+                                                       value="<?= $myProduct['item_id']; ?>">
+                                                <div class="col qty field">
+                                                    <label class="label" for="qty"><span><?= /* @escapeNotVerified */
+                                                            __('Qty') ?></span></label>
+                                                    <div class="control">
+                                                        <input type="number"
+                                                               style="text-align: center;width: 45px;margin-bottom: 2px;"
+                                                               name="reorder-item-qty"
+                                                               id="reorder-item-<?= $myProduct['item_id']; ?>"
+                                                               min="1"
+                                                               size="4"
+                                                               value="<?= /* @escapeNotVerified */
+                                                               $myProduct['qty'] * 1 ?>"
+                                                               title="<?= /* @escapeNotVerified */
+                                                               __('Qty') ?>"
+                                                               class="input-text qty"
+                                                               data-validate="{required:true,'validate-greater-than-zero':true}"
+                                                               data-role="cart-item-qty"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <button type="submit" title="Add to Cart" class="action tocart primary">
+                                                    <span>Add to Cart</span>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </li>
+            <?php endforeach; ?>
+        </ol>
+    </div>
+<?php else: ?>
+<?=  $myOrderedProducts; ?>
+<?php endif; ?>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="prokarma" translate="label" sortOrder="1000">
+            <label>ProKarma</label>
+        </tab>
+        <section id="prokarma" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Customer Dashboard</label>
+            <tab>prokarma</tab>
+            <resource>ProKarma_MyProducts::prokarma_settings</resource>
+            <group id="myproducts" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Customer My Products configuration</label>
+                <field id="view_my_products" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show My Products</label>
+                    <comment>Show My Products in the Customer Dashboard</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
